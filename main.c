@@ -60,11 +60,12 @@ int	ft_error(int argc)
 	return (argc);
 }
 */
+
 int	main(int argc, char **argv)
 {
 	t_data	*data;
 	t_map	*map;
-	
+
 	check_input(argc);
 	if (ft_check_fdf(argv[1]) == 0)
 		return (0);
