@@ -62,8 +62,10 @@ int	get_height(char **argv)
 	while (line != NULL)
 	{
 		i++;
+		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	close(fd);
 	return (i);
 }
@@ -94,6 +96,8 @@ int	get_width(char **argv)
 	while (temp[i] != NULL)
 		i++;
 	close(fd);
+	free_split(temp);
+	free(line);
 	return (i);
 }
 
@@ -104,6 +108,8 @@ void	parsing_line(t_map *map, t_data *data, int j, char *line)
 
 	i = 0;
 	temp = ft_split(line, ' ');
+	if (temp == NULL)
+		exit(0);
 	map->z[j] = (int *)malloc(sizeof(int) * data->width);
 	if (!map->z[j])
 		return ;
@@ -112,7 +118,7 @@ void	parsing_line(t_map *map, t_data *data, int j, char *line)
 		map->z[j][i] = ft_atoi(temp[i]);
 		i++;
 	}
-	free_array(temp);
+	free_split(temp);
 }
 
 void	parsing(t_map *map, t_data *data, char **argv)
@@ -123,15 +129,20 @@ void	parsing(t_map *map, t_data *data, char **argv)
 
 	j = 0;
 	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		exit(0);
 	line = get_next_line(fd);
+	if (line == NULL)
+		exit(0);
 	data->height = get_height(argv);
 	data->width = get_width(argv);
 	map->z = (int **)malloc(sizeof(int *) * data->height);
 	if (!map->z)
-		return ;
+		exit(0);
 	while (j < data->height)
 	{
 		parsing_line(map, data, j, line);
+		free(line);
 		j++;
 		line = get_next_line(fd);
 	}

@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.c parsing.c draw_line.c init.c my_mlx_pixel_put.c set_env.c hook.c
+SRCS = main.c parsing.c draw_line.c init.c my_mlx_pixel_put.c set_env.c hook.c free.c
 OBJS	= ${SRCS:.c=.o}
 
 LIBFT = libft

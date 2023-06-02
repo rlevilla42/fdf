@@ -60,11 +60,9 @@ int	ft_itoa_base_p(unsigned long long n, char *base)
 {
 	int		i;
 	int		len;
-	//int		count;
 	char	*str;
 
 	i = ft_hexasize(n);
-	//count = 0;
 	str = (char *)malloc(sizeof(char) * ft_hexasize(n) + 1);
 	if (str == NULL)
 		return (0);
@@ -72,7 +70,6 @@ int	ft_itoa_base_p(unsigned long long n, char *base)
 	if (n == 0)
 	{
 		str[i] = '0';
-		//count++;
 	}
 	while (n > 0)
 	{
