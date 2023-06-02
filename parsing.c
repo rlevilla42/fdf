@@ -56,7 +56,7 @@ int	get_height(char **argv)
 	int		fd;
 	char	*line;
 
-	i = -1;
+	i = 0;
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
@@ -68,7 +68,7 @@ int	get_height(char **argv)
 		exit(1);
 	while (line != NULL)
 	{
-		++i;
+		i++;
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -144,14 +144,16 @@ void	parsing(t_map *map, t_data *data, char **argv)
 	char	*line;
 
 	j = 0;
+	data->height = get_height(argv);
+	data->width = get_width(argv);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		ft_printf("Map doesn't exist bro\n");
 	line = get_next_line(fd);
 	if (line == NULL)
 		exit(0);
-	data->height = get_height(argv);
-	data->width = get_width(argv);
+	/*data->height = get_height(argv);
+	data->width = get_width(argv);*/
 	map->z = (int **)malloc(sizeof(int *) * data->height);
 	if (!map->z)
 		exit(1);

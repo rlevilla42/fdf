@@ -30,7 +30,7 @@ all:	${NAME}
 $(NAME): $(OBJS)
 	$(MAKE) -C minilibx_macos/
 	$(MAKE) -C libft/
-	$(CFLAGS) $(MEMORY_FLAG) $(OBJS) -L./libft/ -lft -L./minilibx_macos -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CFLAGS) -fsanitize=address $(OBJS) -L./libft/ -lft -L./minilibx_macos -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 .c.o:
 			${CFLAGS} -I./libft -I./minilibx_macos -c $< -o ${<:.c=.o}
