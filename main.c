@@ -24,26 +24,58 @@ int	check_input(int argc)
 {
 	if (argc != 2)
 	{
-		ft_printf("argument error\n");
-		exit(0);
+		write(2, "Argument error broo\n", 20);
+		exit(1);
 	}
 	return (0);
 }
 
+int	ft_check_fdf(char *argv)
+{
+	int	i;
+
+	i = 0;
+	i = ft_strlen(argv) - 1;
+	if (i <= 4 || (argv[i]) != 'f' || (argv[i - 1]) != 'd'
+		|| (argv[i - 2]) != 'f' || (argv[i - 3]) != '.')
+	{
+		perror("Wrong format\n");
+		return (0);
+	}
+	else
+		return (1);
+}
+/*
+int	ft_error(int argc)
+{	
+	if (argc > 2)
+	{
+		perror("Too many arguments\n");
+		perror("Too many arguments\n");
+	}
+	else if (argc < 2)
+	{
+		perror("Not enough argument\nFormat is ./.fdf maps/42.fdf \n");
+	}
+	return (argc);
+}
+*/
 int	main(int argc, char **argv)
 {
 	t_data	*data;
 	t_map	*map;
-
+	
 	check_input(argc);
+	if (ft_check_fdf(argv[1]) == 0)
+		return (0);
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
-		exit(0);
+		exit(1);
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
 	{
 		free(data);
-		exit(0);
+		exit(1);
 	}
 	init(data, map);
 	parsing(map, data, argv);
